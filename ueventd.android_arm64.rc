@@ -1,0 +1,16 @@
+/dev/ttyS*                0660  system        radio
+/dev/ttyACM*              0660  system        radio
+/dev/ttyUSB*              0660  radio         radio
+/dev/video*               0660  cameraserver  system
+/dev/iio:device*          0660  system        system
+/dev/ion                  0664  system        system
+/dev/rfkill               0660  bluetooth     wifi
+/dev/uhid                 0660  bluetooth     bluetooth
+/sys/devices/system/cpu/cpu*    online        0664   system     system
+
+# BlueStacks host-guest channel devices (from android-mac device/bst/qvirt
+# ueventd.bst.rc; x86 ueventd creates these from the BootImage initrd instead).
+/dev/bstpgaipc          0666    root    root
+/dev/bstvmsg            0666    root    root
+/dev/bst_ime            0666    root    root
+/dev/bstgmd             0666    root    root

@@ -11,34 +11,32 @@ TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_VARIANT := generic
 TARGET_CPU_ABI := arm64-v8a
-
-TARGET_2ND_ARCH := arm
-TARGET_2ND_ARCH_VARIANT := armv7-a-neon
-TARGET_2ND_CPU_VARIANT := cortex-a15
-TARGET_2ND_CPU_ABI := armeabi-v7a
-TARGET_2ND_CPU_ABI2 := armeabi
-
-
-SMALLER_FONT_FOOTPRINT := true
-MINIMAL_FONT_FOOTPRINT := true
-# Some framework code requires this to enable BT
-BOARD_HAVE_BLUETOOTH := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/generic/common/bluetooth
+# BlueStacks mac (qvirt) guest is arm64-only; the A13 device/bst/qvirt
+# board kept TARGET_2ND_ARCH disabled the same way.
 
 BOARD_USES_GENERIC_AUDIO := true
 
-USE_CAMERA_STUB := true
-
-BUILD_EMULATOR_OPENGL := true
 USE_OPENGL_RENDERER := true
-
 BOARD_USE_LEGACY_UI := true
 
-# PDK does not use ext4 image, but it is added here to prevent build break.
 TARGET_USERIMAGES_USE_EXT4 := true
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1073741824 # 1 GB
+# System image size is content + BOARD_SYSTEMIMAGE_PARTITION_RESERVED_SIZE from the common board (config.mk rejects SIZE + RESERVED together).
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 576716800
 BOARD_CACHEIMAGE_PARTITION_SIZE := 69206016
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_FLASH_BLOCK_SIZE := 512
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := true
+
+# BlueStacks shared board base (sepolicy dirs, emulator off, BT cfg),
+# same include the android_x86_64 product uses.
+include device/generic/common/BoardConfig.mk
+
+# Legacy HIDL surface retained from A13, same declarations as android_x86_64.
+DEVICE_MANIFEST_FILE += device/generic/arm64/manifest_bst_legacy_hal.xml
+DEVICE_MANIFEST_FILE += device/generic/common/manifest/android.hardware.graphics.allocator@2.0.xml
+DEVICE_MANIFEST_FILE += device/generic/common/manifest/android.hardware.graphics.composer@2.1.xml
+DEVICE_MANIFEST_FILE += device/generic/common/manifest/android.hardware.graphics.mapper@2.1.xml
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
+    device/generic/arm64/framework_compatibility_matrix.xml
+
+BUILD_BROKEN_INCORRECT_PARTITION_IMAGES := true
