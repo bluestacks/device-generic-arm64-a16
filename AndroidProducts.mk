@@ -18,6 +18,7 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/android_arm64.mk \
     $(LOCAL_DIR)/mini_arm64.mk
 
+# BS-A16-MAC: BlueStacks Mac (polar_mac/HVF) guest line, 64-bit only.
 COMMON_LUNCH_CHOICES := \
     android_arm64-trunk_staging-eng \
     android_arm64-trunk_staging-user \
